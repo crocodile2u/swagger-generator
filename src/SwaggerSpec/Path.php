@@ -22,6 +22,15 @@ class Path implements PathInterface
         $this->uri = $uri;
     }
 
+    public function addEndpointsArray(array $endpoints)
+    {
+        foreach ($endpoints as $httpVerb => $endpointSpec) {
+            $endpoint = $endpointSpec instanceof EndpointInterface
+                ? $endpointSpec
+                : Endpoint::fromArray();
+        }
+    }
+
     /**
      * @param string $httpVerb
      * @param EndpointInterface $endpoint

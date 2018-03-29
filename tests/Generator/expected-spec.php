@@ -88,6 +88,36 @@ return [
                 ],
             ],
         ],
+        "/some-path/{id}" => [
+            "get" => [
+                "parameters" => [
+                    [
+                        "in" => "path",
+                        "name" => "id",
+                        "required" => true,
+                        "type" => "integer",
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'something',
+                        'required' => false,
+                        'schema' => [
+                            '$ref' => '#/definitions/Test'
+                        ]
+                    ]
+                ],
+                "produces" => ["application/json"],
+                "responses" => [
+                    200 => [
+                        "description" => "",
+                        "type" => "integer"
+                    ]
+                ],
+                'summary' => '',
+                'description' => '',
+                'operationId' => '',
+            ]
+        ]
     ],
     'definitions' => [
         'Test' => [
@@ -102,7 +132,9 @@ return [
             'type' => 'object',
             'properties' => [
                 'ref' => [
-                    '$ref' => '#/definitions/Test',
+                    "schema" => [
+                        '$ref' => '#/definitions/Test',
+                    ]
                 ],
             ],
         ],

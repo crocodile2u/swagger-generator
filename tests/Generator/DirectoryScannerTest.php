@@ -4,12 +4,16 @@ namespace Tests\SwaggerGenerator\Generator;
 
 use PHPUnit\Framework\TestCase;
 use SwaggerGenerator\Generator\DirectoryScanner;
+use SwaggerGenerator\SwaggerSpec\Schema;
+use Tests\SwaggerGenerator\ReferenceResolver\TestResolver;
 
 class DirectoryScannerTest extends TestCase
 {
     public function testScan()
     {
-        $generator = new DirectoryScanner(__DIR__ . "/../");
+        $schema = new Schema();
+        $schema->registerResolver(new TestResolver());
+        $generator = new DirectoryScanner(__DIR__ . "/../", $schema);
         $spec = $generator->scan();
 
         $spec->setHost("test.host")

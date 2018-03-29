@@ -3,6 +3,7 @@
 namespace SwaggerGenerator\SwaggerSpec;
 
 use SwaggerGenerator\Integration\ParameterInterface;
+use SwaggerGenerator\Integration\SerializationContext;
 
 class Parameter implements ParameterInterface
 {
@@ -26,6 +27,26 @@ class Parameter implements ParameterInterface
      * @var string
      */
     private $description;
+
+    /**
+     * @param $spec
+     * @return Parameter
+     */
+    public static function fromSpec($spec, SerializationContext $context)
+    {
+        return $spec instanceof self ? $spec : self::fromArray($spec, $context);
+    }
+
+    /**
+     * @param array $spec
+     * @return Parameter
+     */
+    public static function fromArray(array $spec, SerializationContext $context)
+    {
+        $required = !empty($spec["required"]);
+        return new self($spec["name"], $spec["in"], Type::fromArray($spec, $context), $required);
+    }
+
     /**
      * Parameter constructor.
      * @param string $name
@@ -66,11 +87,7 @@ class Parameter implements ParameterInterface
             "name" => $this->name,
             "required" => $this->required,
         ];
-        if ("body" === $this->in) {
-            $ret["schema"] = $this->type;
-        } else {
-            $ret += $this->type->jsonSerialize();
-        }
+        $ret += $this->type->jsonSerialize();
         return $ret;
     }
 }

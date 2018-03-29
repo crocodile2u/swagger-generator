@@ -5,6 +5,7 @@ namespace SwaggerGenerator\SwaggerSpec;
 use SwaggerGenerator\Integration\EndpointInterface;
 use SwaggerGenerator\Integration\ParameterInterface;
 use SwaggerGenerator\Integration\ResponseInterface;
+use SwaggerGenerator\Integration\SerializationContext;
 
 class Endpoint implements EndpointInterface
 {
@@ -34,10 +35,66 @@ class Endpoint implements EndpointInterface
     private $parameters = [];
 
     /**
+     * @param $spec
+     * @return Endpoint
+     */
+    public static function fromSpec($spec, SerializationContext $context)
+    {
+        return $spec instanceof self ? $spec : self::fromArray($spec, $context);
+    }
+
+    /**
+     * @param array $spec
+     * @return Endpoint
+     */
+    public static function fromArray(array $spec, SerializationContext $context)
+    {
+        $ret = new self;
+        foreach ($spec as $key => $value) {
+            switch ($key) {
+                case "summary":
+                    $ret->setSummary($value);
+                    break;
+                case "description":
+                    $ret->setDescription($value);
+                    break;
+                case "operationId":
+                    $ret->setOperationId($value);
+                    break;
+                case "produces":
+                    foreach ((array) $value as $contentType) {
+                        $ret->addResponseContentType($contentType);
+                    }
+                    break;
+                case "responses":
+                    if (!is_array($value)) {
+                        throw new \InvalidArgumentException("Endpoint.responses is expected to be an array( HTTP Status Code => Response Spec,.. )");
+                    }
+                    foreach ($value as $statusCode => $responseSpec) {
+                        $response = Response::fromSpec($responseSpec, $context);
+                        $ret->addResponse($statusCode, $response);
+                    }
+                    break;
+                case "parameters":
+                    if (!is_array($value)) {
+                        throw new \InvalidArgumentException("Endpoint.parameters is expected to be an array( Parameter Spec 1,.. )");
+                    }
+                    foreach ($value as $parameterSpec) {
+                        $ret->addParameter(Parameter::fromSpec($parameterSpec, $context));
+                    }
+                    break;
+                default:
+                    throw new \InvalidArgumentException("Endpoint specification contains unexpected key $key");
+            }
+        }
+        return $ret;
+    }
+
+    /**
      * @param string $summary
      * @return $this
      */
-    public function setSummary($summary): Endpoint
+    public function setSummary($summary)
     {
         $this->summary = $summary;
         return $this;
@@ -47,7 +104,7 @@ class Endpoint implements EndpointInterface
      * @param string $description
      * @return $this
      */
-    public function setDescription($description): Endpoint
+    public function setDescription($description)
     {
         $this->description = $description;
         return $this;
@@ -57,7 +114,7 @@ class Endpoint implements EndpointInterface
      * @param string $operationId
      * @return $this
      */
-    public function setOperationId($operationId): Endpoint
+    public function setOperationId($operationId)
     {
         $this->operationId = $operationId;
         return $this;
@@ -70,6 +127,7 @@ class Endpoint implements EndpointInterface
     public function addResponseContentType($type)
     {
         $this->produces[] = $type;
+        $this->produces = array_unique($this->produces);
         return $this;
     }
 
@@ -87,7 +145,7 @@ class Endpoint implements EndpointInterface
      * @param Parameter[] $parameters
      * @return $this
      */
-    public function setParameters(array $parameters): Endpoint
+    public function setParameters(array $parameters)
     {
         $this->parameters = $parameters;
         return $this;
@@ -101,7 +159,7 @@ class Endpoint implements EndpointInterface
     public function mergeParameters(array $parameters, $override)
     {
         foreach ($parameters as $parameter) {
-            [$existing, $index] = $this->findParameter($parameter);
+            list($existing, $index) = $this->findParameter($parameter);
             if ($existing && $override) {
                 $this->parameters[$index] = $parameter;
             } elseif (!$existing) {

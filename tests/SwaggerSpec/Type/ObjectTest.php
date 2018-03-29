@@ -3,11 +3,33 @@
 namespace Tests\SwaggerGenerator\SwaggerSpec\Type;
 
 use PHPUnit\Framework\TestCase;
+use SwaggerGenerator\SwaggerSpec\Schema;
 use SwaggerGenerator\SwaggerSpec\Type;
 use SwaggerGenerator\SwaggerSpec\Type\Obj;
 
 class ObjectTest extends TestCase
 {
+    /**
+     * @param array $spec
+     * @param Type $expected
+     * @dataProvider providerTestFromArray
+     */
+    public function testFromArray($spec, $expected)
+    {
+        $obj = Obj::fromArray($spec, new Schema());
+        $this->assertEquals($expected, $obj);
+    }
+
+    public function providerTestFromArray()
+    {
+        return [
+            [
+                ["type" => "object", "properties" => ["id" => ["type" => "integer"]]],
+                Type::object()->addProperty("id", Type::int())
+            ],
+        ];
+    }
+
     function testEmptyObject()
     {
         $type = new Obj();

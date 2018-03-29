@@ -3,10 +3,49 @@
 namespace Tests\SwaggerGenerator\SwaggerSpec\Type;
 
 use PHPUnit\Framework\TestCase;
+use SwaggerGenerator\SwaggerSpec\Schema;
+use SwaggerGenerator\SwaggerSpec\Type;
 use SwaggerGenerator\SwaggerSpec\Type\Scalar;
 
 class ScalarTest extends TestCase
 {
+    /**
+     * @param array $spec
+     * @param Scalar $expected
+     * @dataProvider providerTestFromArray
+     */
+    public function testFromArray($spec, $expected)
+    {
+        $scalar = Scalar::fromArray($spec, new Schema());
+        $this->assertEquals($expected, $scalar);
+    }
+
+    public function providerTestFromArray()
+    {
+        return [
+            [
+                ["type" => "integer"],
+                Type::int()
+            ],
+            [
+                ["type" => "number"],
+                Type::number()
+            ],
+            [
+                ["type" => "boolean"],
+                Type::bool()
+            ],
+            [
+                ["type" => "string"],
+                Type::string()
+            ],
+            [
+                ["type" => "string", "format" => "date"],
+                Type::string("date")
+            ],
+        ];
+    }
+
     /**
      * @param string $type
      * @param string|null $format
@@ -14,7 +53,7 @@ class ScalarTest extends TestCase
      * @param array $expectedResult
      * @dataProvider providerTestJsonSerialize
      */
-    function testJsonSerialize(string $type, string $format = null, array $rules = [], array $expectedResult)
+    function testJsonSerialize($type, $format = null, array $rules = [], array $expectedResult)
     {
         $type = new Scalar($type, $format);
         foreach ($rules as $name => $value) {

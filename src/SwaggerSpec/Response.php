@@ -3,6 +3,7 @@
 namespace SwaggerGenerator\SwaggerSpec;
 
 use SwaggerGenerator\Integration\ResponseInterface;
+use SwaggerGenerator\Integration\SerializationContext;
 
 class Response implements ResponseInterface
 {
@@ -14,6 +15,21 @@ class Response implements ResponseInterface
      * @var Type
      */
     private $type;
+
+    /**
+     * @param $spec
+     * @return Response
+     */
+    public static function fromSpec($spec, SerializationContext $context)
+    {
+        return $spec instanceof self ? $spec : self::fromArray($spec, $context);
+    }
+
+    public static function fromArray(array $spec, SerializationContext $context)
+    {
+        $decription = empty($spec["decription"]) ? "" : $spec["decription"];
+        return new self(Type::fromSpec($spec, $context), $decription);
+    }
 
     /**
      * Response constructor.
@@ -30,7 +46,6 @@ class Response implements ResponseInterface
     {
         return [
             "description" => $this->description,
-            "schema" => json_decode($this->type->asJson()),
-        ];
+        ] + $this->type->jsonSerialize();
     }
 }

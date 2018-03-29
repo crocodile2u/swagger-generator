@@ -11,14 +11,19 @@ class DirectoryScanner
      * @var string
      */
     private $directoryPath;
+    /**
+     * @var SwaggerSpec\Schema
+     */
+    private $schema;
 
     /**
      * DirectoryScanner constructor.
      * @param string $directoryPath
      */
-    public function __construct($directoryPath)
+    public function __construct($directoryPath, SwaggerSpec\Schema $schema)
     {
         $this->directoryPath = $directoryPath;
+        $this->schema = $schema;
     }
 
     /**
@@ -41,6 +46,6 @@ class DirectoryScanner
             return in_array(Controller::class, class_implements($class));
         });
 
-        return (new ControllerList($controllers))->generate();
+        return (new ControllerList($controllers, $this->schema))->generate();
     }
 }

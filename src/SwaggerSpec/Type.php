@@ -2,7 +2,9 @@
 
 namespace SwaggerGenerator\SwaggerSpec;
 
+use SwaggerGenerator\Integration\SerializationContext;
 use SwaggerGenerator\SwaggerSpec\Type\Obj;
+use SwaggerGenerator\SwaggerSpec\Type\Ref;
 use SwaggerGenerator\SwaggerSpec\Type\Scalar;
 use SwaggerGenerator\SwaggerSpec\Type\Str;
 use SwaggerGenerator\SwaggerSpec\Type\TypedArray;
@@ -11,7 +13,50 @@ abstract class Type implements \JsonSerializable
 {
     const OBJECT = "object";
     const REF = "ref";
-    const ARRAY = "array";
+    const ARRAYTYPE = "array";
+
+    /**
+     * @param Type|array $spec
+     */
+    public static function fromSpec($spec, SerializationContext $context)
+    {
+        return $spec instanceof self ? $spec : self::fromArray($spec, $context);
+    }
+
+    /**
+     * @param array $spec
+     * @return self
+     */
+    public static function fromArray(array $spec, SerializationContext $context)
+    {
+        if (isset($spec["schema"])) {
+            $ref = $spec["schema"];
+            if ($ref instanceof Ref) {
+                return $ref;
+            } elseif (is_string($ref)) {
+                return new Ref($context, $ref);
+            } else {
+                throw new \InvalidArgumentException("schema key must contain a valid Type\\Ref object");
+            }
+        }
+        $type = empty($spec["type"]) ? null : $spec["type"];
+        switch ($type) {
+            case Scalar::STRING:
+            case Scalar::INTEGER:
+            case Scalar::NUMBER:
+            case Scalar::BOOLEAN:
+                return Scalar::fromArray($spec, $context);
+                break;
+            case self::ARRAYTYPE:
+                return TypedArray::fromArray($spec, $context);
+                break;
+            case self::OBJECT:
+                return Obj::fromArray($spec, $context);
+                break;
+            default:
+                throw new \InvalidArgumentException("Unexpected swagger type $type");
+        }
+    }
 
     /**
      * @param string $type
@@ -19,7 +64,7 @@ abstract class Type implements \JsonSerializable
      * @return Scalar
      * @throws \InvalidArgumentException
      */
-    public static function createScalar(string $type, string $format = null): Scalar
+    public static function createScalar($type, $format = null)
     {
         switch ($type) {
             case Scalar::STRING:
@@ -39,7 +84,7 @@ abstract class Type implements \JsonSerializable
      * @param string|null $format
      * @return Scalar
      */
-    public static function int(string $format = null)
+    public static function int($format = null)
     {
         return new Scalar(Scalar::INTEGER, $format);
     }
@@ -64,7 +109,7 @@ abstract class Type implements \JsonSerializable
      * @param string|null $format
      * @return Scalar
      */
-    public static function number(string $format = null)
+    public static function number($format = null)
     {
         return new Scalar(Scalar::NUMBER, $format);
     }
@@ -88,7 +133,7 @@ abstract class Type implements \JsonSerializable
     /**
      * @return Str
      */
-    public static function string(string $format = null)
+    public static function string($format = null)
     {
         return new Str($format);
     }
@@ -150,7 +195,7 @@ abstract class Type implements \JsonSerializable
         return new TypedArray($type);
     }
 
-    public static function object(): Obj
+    public static function object()
     {
         return new Obj();
     }
@@ -164,7 +209,7 @@ abstract class Type implements \JsonSerializable
      */
     private $rules = [];
 
-    public function __construct(string $type, string $format = null)
+    public function __construct($type, $format = null)
     {
         $this->type = $type;
         $this->addRule("format", $format);
@@ -173,7 +218,7 @@ abstract class Type implements \JsonSerializable
     /**
      * @param bool $flag
      */
-    public function setNullable(bool $flag)
+    public function setNullable($flag)
     {
         return $this->addRule("nullable", $flag);
     }
@@ -183,7 +228,7 @@ abstract class Type implements \JsonSerializable
      * @param string|int|bool $value
      * @return $this
      */
-    public function addRule(string $name, $value)
+    public function addRule($name, $value)
     {
         if (null !== $value) {
             $this->rules[$name] = $value;

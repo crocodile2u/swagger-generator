@@ -10,7 +10,7 @@ class Str extends Scalar
     const BYTE = "byte";
     const BINARY = "binary";
 
-    public function __construct(string $format = null)
+    public function __construct($format = null)
     {
         parent::__construct(self::STRING, $format);
     }
@@ -18,7 +18,7 @@ class Str extends Scalar
     /**
      * @return Str
      */
-    public function setPattern(string $regexp)
+    public function setPattern($regexp)
     {
         return $this->addRule("pattern", $regexp);
     }

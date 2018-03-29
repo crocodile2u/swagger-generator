@@ -28,7 +28,7 @@
     "repositories": {
         "swagger-generator-integration": {
             "type": "vcs",
-            "url": "ssh://git@bitbucket.org/crocodile2u/swagger-generator-integration.git"
+            "url": "ssh://git@gitlab.nbwm.nl:3022/nbwm/swagger-generator-integration.git"
         }
     }
 }

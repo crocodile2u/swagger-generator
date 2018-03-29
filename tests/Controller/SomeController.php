@@ -10,7 +10,7 @@ use SwaggerGenerator\SwaggerSpec\Path;
 use SwaggerGenerator\SwaggerSpec\PathCollection;
 use SwaggerGenerator\SwaggerSpec\Response;
 use SwaggerGenerator\SwaggerSpec\Type;
-use Tests\SwaggerGenerator\Models\TestModel1;
+use Tests\SwaggerGenerator\ReferenceResolver\TestModel1;
 
 class SomeController implements Controller
 {
@@ -24,9 +24,9 @@ class SomeController implements Controller
                     (new Endpoint())->addParameter(
                         new Parameter("id", "path", Type::int())
                     )->addParameter(
-                        new Parameter("obj", "body", new Type\Ref($context, "Test1", TestModel1::class))
+                        new Parameter("obj", "body", new Type\Ref($context, "Test1"))
                     )->addResponse(200, new Response(
-                        new Type\Ref($context, "Test1", TestModel1::class)
+                        new Type\Ref($context, "Test1")
                     ))
                 )
         );

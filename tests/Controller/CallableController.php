@@ -11,7 +11,7 @@ use SwaggerGenerator\SwaggerSpec\Path;
 use SwaggerGenerator\SwaggerSpec\PathCollection;
 use SwaggerGenerator\SwaggerSpec\Response;
 use SwaggerGenerator\SwaggerSpec\Type;
-use Tests\SwaggerGenerator\Models\TestModel;
+use Tests\SwaggerGenerator\ReferenceResolver\TestModel;
 
 class CallableController implements Controller
 {
@@ -30,9 +30,9 @@ class CallableController implements Controller
                     (new Endpoint())->addParameter(
                         new Parameter("id", "path", Type::int())
                     )->addParameter(
-                        new Parameter("objParam", "body", new Type\Ref($context, "Test", TestModel::class))
+                        new Parameter("objParam", "body", new Type\Ref($context, "Test"))
                     )->addResponse(200, new Response(
-                        new Type\Ref($context, "Test", TestModel::class)
+                        new Type\Ref($context, "Test")
                     ))
                 )
         );

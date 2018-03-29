@@ -58,17 +58,18 @@ class SwaggerSpecTest extends TestCase
     {
         $schema = new Schema();
 
-        $home = new SwaggerSpec\Endpoint();
-
-        $homeResponse = new class implements ReferenceResolver {
-            public static function resolveSwaggerType(SerializationContext $context)
+        $resolver = new class implements ReferenceResolver {
+            public function resolveSwaggerType(SerializationContext $context, $name)
             {
                 $type = new SwaggerSpec\Type\Obj();
                 $type->addProperty("id", SwaggerSpec\Type::int());
                 return $type;
             }
         };
-        $homeResponseType = new SwaggerSpec\Type\Ref($schema, "HomeResponse", get_class($homeResponse));
+        $schema->registerResolver($resolver);
+
+        $home = new SwaggerSpec\Endpoint();
+        $homeResponseType = new SwaggerSpec\Type\Ref($schema, "HomeResponse");
         $home->addResponse(200, new SwaggerSpec\Response($homeResponseType));
 
         $pathHome = new SwaggerSpec\Path("/");
