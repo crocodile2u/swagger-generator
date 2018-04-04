@@ -4,15 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a40477e57647b5cc3207bbaa9083b1b7",
+    "content-hash": "b5180ef1d725a8751aceb58b3cfb5f9e",
     "packages": [
         {
-            "name": "crocodile2u/swagger-generator-integration",
-            "version": "v1.1.24",
+            "name": "nbwm/swagger-generator-integration",
+            "version": "v1.1.25",
             "source": {
                 "type": "git",
                 "url": "ssh://git@gitlab.nbwm.nl:3022/nbwm/swagger-generator-integration.git",
-                "reference": "5b4dbaa068a0cd42d312d232abeca78d14ab890b"
+                "reference": "98cf650d53a23e3c95032c877ef48fc0a1c6a542"
             },
             "require": {
                 "php": ">=5.3"
@@ -29,11 +29,11 @@
             "authors": [
                 {
                     "name": "Victor Bolshov",
-                    "email": "crocodile2u@gmail.com"
+                    "email": "victor.bolshov@nbwm.nl"
                 }
             ],
             "description": "Integration interfaces for swagger-generator",
-            "time": "2018-03-29T20:45:08+00:00"
+            "time": "2018-04-04T09:20:08+00:00"
         }
     ],
     "packages-dev": [
