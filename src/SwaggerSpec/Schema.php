@@ -45,7 +45,7 @@ class Schema implements SerializationContext, \JsonSerializable
     public function jsonSerialize()
     {
         $this->resolveReferences();
-        return $this->resolved;
+        return (object) $this->resolved;
     }
 
     private function resolveReferences()

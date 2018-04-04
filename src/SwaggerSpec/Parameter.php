@@ -71,6 +71,14 @@ class Parameter implements ParameterInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function locatedIn()
+    {
+        return $this->in;
+    }
+
+    /**
      * @param string $description
      * @return $this
      */

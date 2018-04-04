@@ -9,6 +9,7 @@ use SwaggerGenerator\Integration\SerializationContext;
 
 class Endpoint implements EndpointInterface
 {
+    private $defaultContentTypes = ["application/json"];
     /**
      * @var string
      */
@@ -24,7 +25,11 @@ class Endpoint implements EndpointInterface
     /**
      * @var string[]
      */
-    private $produces = ["application/json"];
+    private $produces = [];
+    /**
+     * @var string[]
+     */
+    private $consumes = [];
     /**
      * @var Response[]
      */
@@ -64,6 +69,11 @@ class Endpoint implements EndpointInterface
                 case "produces":
                     foreach ((array) $value as $contentType) {
                         $ret->addResponseContentType($contentType);
+                    }
+                    break;
+                case "consumes":
+                    foreach ((array) $value as $contentType) {
+                        $ret->addRequestContentType($contentType);
                     }
                     break;
                 case "responses":
@@ -131,6 +141,13 @@ class Endpoint implements EndpointInterface
         return $this;
     }
 
+    public function addRequestContentType($type)
+    {
+        $this->consumes[] = $type;
+        $this->consumes = array_unique($this->consumes);
+        return $this;
+    }
+
     /**
      * @param string[] $types
      * @return $this
@@ -138,6 +155,16 @@ class Endpoint implements EndpointInterface
     public function replaceResponseContentTypes(array $types)
     {
         $this->produces = $types;
+        return $this;
+    }
+
+    /**
+     * @param string[] $types
+     * @return $this
+     */
+    public function replaceRequestContentTypes(array $types)
+    {
+        $this->consumes = $types;
         return $this;
     }
 
@@ -176,6 +203,9 @@ class Endpoint implements EndpointInterface
     public function addParameter(ParameterInterface $parameter)
     {
         $this->parameters[] = $parameter;
+        if ("formData" === $parameter->locatedIn()) {
+            $this->addRequestContentType("application/x-www-form-urlencoded");
+        }
         return $this;
     }
 

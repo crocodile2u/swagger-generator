@@ -8,11 +8,11 @@
     "packages": [
         {
             "name": "nbwm/swagger-generator-integration",
-            "version": "v1.1.25",
+            "version": "v1.1.26",
             "source": {
                 "type": "git",
                 "url": "ssh://git@gitlab.nbwm.nl:3022/nbwm/swagger-generator-integration.git",
-                "reference": "98cf650d53a23e3c95032c877ef48fc0a1c6a542"
+                "reference": "e2ae60969c6add5be5c8bc47cacee1e0acb183bd"
             },
             "require": {
                 "php": ">=5.3"
@@ -33,7 +33,7 @@
                 }
             ],
             "description": "Integration interfaces for swagger-generator",
-            "time": "2018-04-04T09:20:08+00:00"
+            "time": "2018-04-04T10:47:02+00:00"
         }
     ],
     "packages-dev": [
