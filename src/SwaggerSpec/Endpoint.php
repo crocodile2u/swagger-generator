@@ -244,7 +244,8 @@ class Endpoint implements EndpointInterface
             "description" => $this->description,
             "operationId" => (string) $this->operationId,
             "parameters" => $this->parameters,
-            "produces" => $this->produces,
+            "produces" => $this->produces ?: $this->defaultContentTypes,
+            "consumes" => $this->consumes ?: $this->defaultContentTypes,
             "responses" => $this->responses,
         ];
     }
