@@ -44,6 +44,7 @@ return [
                 'produces' => [
                     'application/json',
                 ],
+                "consumes" => ["application/json"],
                 'responses' => [
                     200 => [
                         'description' => '',
@@ -78,6 +79,7 @@ return [
                 'produces' => [
                     'application/json',
                 ],
+                "consumes" => ["application/json"],
                 'responses' => [
                     200 => [
                         'description' => '',
@@ -107,10 +109,11 @@ return [
                     ]
                 ],
                 "produces" => ["application/json"],
+                "consumes" => ["application/json"],
                 "responses" => [
                     200 => [
                         "description" => "",
-                        "type" => "integer"
+                        "schema" => ["type" => "integer"]
                     ]
                 ],
                 'summary' => '',

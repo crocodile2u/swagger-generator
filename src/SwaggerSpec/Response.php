@@ -2,6 +2,7 @@
 
 namespace SwaggerGenerator\SwaggerSpec;
 
+use SwaggerGenerator\Integration\Reference;
 use SwaggerGenerator\Integration\ResponseInterface;
 use SwaggerGenerator\Integration\SerializationContext;
 
@@ -27,8 +28,9 @@ class Response implements ResponseInterface
 
     public static function fromArray(array $spec, SerializationContext $context)
     {
-        $decription = empty($spec["decription"]) ? "" : $spec["decription"];
-        return new self(Type::fromSpec($spec, $context), $decription);
+        $decription = empty($spec["decsription"]) ? "" : $spec["description"];
+        $schema = empty($spec["schema"]) ? [] : $spec["schema"];
+        return new self(Type::fromSpec($schema, $context), $decription);
     }
 
     /**
@@ -44,8 +46,15 @@ class Response implements ResponseInterface
 
     function jsonSerialize()
     {
+        if ($this->type instanceof Reference) {
+            $schemaJson = $this->type->jsonSerialize();
+        } else {
+            $schemaJson = [
+                "schema" => $this->type->jsonSerialize()
+            ];
+        }
         return [
-            "description" => $this->description,
-        ] + $this->type->jsonSerialize();
+            "description" => $this->description
+        ] + $schemaJson;
     }
 }

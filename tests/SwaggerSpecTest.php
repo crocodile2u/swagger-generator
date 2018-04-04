@@ -109,6 +109,7 @@ class SwaggerSpecTest extends TestCase
                         'operationId' => '',
                         'parameters' => [],
                         'produces' => ['application/json'],
+                        "consumes" => ["application/json"],
                         'responses' => [
                             200 => [
                                 'description' => '',

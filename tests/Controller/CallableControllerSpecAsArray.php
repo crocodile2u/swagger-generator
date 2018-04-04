@@ -27,14 +27,18 @@ class CallableControllerSpecAsArray implements Controller
                         [
                             "in" => "query",
                             "name" => "something",
-                            "schema" => "Test"
+                            "schema" => [
+                                '$ref' => "Test"
+                            ]
                         ]
                     ],
                     "produces" => "application/json",
                     "responses" => [
                         200 => [
                             "description" => "",
-                            "type" => "integer"
+                            "schema" => [
+                                "type" => "integer"
+                            ]
                         ]
                     ]
                 ]

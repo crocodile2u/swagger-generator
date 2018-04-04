@@ -22,7 +22,7 @@ class Ref extends Type implements Reference
     public function __construct(SerializationContext $context, $name)
     {
         parent::__construct(self::REF);
-        $this->name = $name;
+        $this->name = basename($name);
         $context->registerReference($this);
     }
 

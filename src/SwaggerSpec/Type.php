@@ -35,10 +35,15 @@ abstract class Type implements \JsonSerializable
                 return $ref;
             } elseif (is_string($ref)) {
                 return new Ref($context, $ref);
+            } elseif (isset($ref['$ref']) && is_string($ref['$ref'])) {
+                return new Ref($context, $ref['$ref']);
             } else {
                 throw new \InvalidArgumentException("schema key must contain a valid Type\\Ref object");
             }
         }
+//        if (isset($spec['$ref'])) {
+//            return new Ref($context, $spec['$ref']);
+//        }
         $type = empty($spec["type"]) ? null : $spec["type"];
         switch ($type) {
             case Scalar::STRING:
@@ -248,8 +253,8 @@ abstract class Type implements \JsonSerializable
     public function jsonSerialize()
     {
         $ret = [
-                "type" => $this->type
-            ] + $this->rules;
+            "type" => $this->type
+        ] + $this->rules;
 
         return $ret;
     }
