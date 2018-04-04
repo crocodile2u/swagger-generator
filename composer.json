@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "crocodile2u/swagger-generator-integration": "*"
+        "nbwm/swagger-generator-integration": "*"
     },
     "autoload": {
         "psr-4": {
