@@ -1,5 +1,5 @@
 {
-    "name": "crocodile2u/laravel-swagger-generator",
+    "name": "nbwm/swagger-generator",
     "description": "Generate swagger spec for your REST API Laravel-based project",
     "type": "library",
     "require-dev": {
@@ -9,7 +9,7 @@
     "authors": [
         {
             "name": "Victor Bolshov",
-            "email": "crocodile2u@gmail.com"
+            "email": "victor.bolshov@nbwm.nl"
         }
     ],
     "require": {
