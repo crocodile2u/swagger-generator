@@ -3,8 +3,8 @@
 namespace Tests\SwaggerGenerator;
 
 use PHPUnit\Framework\TestCase;
-use SwaggerGenerator\Integration\ReferenceResolver;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\ReferenceResolverInterface;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec;
 use SwaggerGenerator\SwaggerSpec\Schema;
 
@@ -58,15 +58,15 @@ class SwaggerSpecTest extends TestCase
     {
         $schema = new Schema();
 
-        $resolver = new class implements ReferenceResolver {
-            public function resolveSwaggerType(SerializationContext $context, $name)
+        $resolver = new class implements ReferenceResolverInterface {
+            public function resolveSwaggerType(SerializationContextInterface $context, $name)
             {
                 $type = new SwaggerSpec\Type\Obj();
                 $type->addProperty("id", SwaggerSpec\Type::int());
                 return $type;
             }
         };
-        $schema->registerResolver($resolver);
+        $schema->registerReferenceResolver($resolver);
 
         $home = new SwaggerSpec\Endpoint();
         $homeResponseType = new SwaggerSpec\Type\Ref($schema, "HomeResponse");

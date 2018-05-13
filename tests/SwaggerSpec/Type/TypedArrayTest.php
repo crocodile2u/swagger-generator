@@ -5,7 +5,6 @@ namespace Tests\SwaggerGenerator\SwaggerSpec\Type;
 use PHPUnit\Framework\TestCase;
 use SwaggerGenerator\SwaggerSpec\Schema;
 use SwaggerGenerator\SwaggerSpec\Type;
-use Tests\SwaggerGenerator\ReferenceResolver\TestModel;
 
 class TypedArrayTest extends TestCase
 {

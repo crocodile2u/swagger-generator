@@ -3,6 +3,7 @@
 namespace SwaggerGenerator\SwaggerSpec\Type;
 
 use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type;
 
 class Obj extends Type
@@ -29,7 +30,7 @@ class Obj extends Type
      * @param array $spec
      * @return Type|Obj
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         if (empty($spec["properties"]) || !is_array($spec["properties"])) {
             throw new \InvalidArgumentException("Obj::fromArray() expects properties key to be an array");

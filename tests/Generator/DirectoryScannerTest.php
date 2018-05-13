@@ -12,7 +12,7 @@ class DirectoryScannerTest extends TestCase
     public function testScan()
     {
         $schema = new Schema();
-        $schema->registerResolver(new TestResolver());
+        $schema->registerReferenceResolver(new TestResolver());
         $generator = new DirectoryScanner(__DIR__ . "/../", $schema);
         $spec = $generator->scan();
 

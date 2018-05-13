@@ -3,7 +3,7 @@
 namespace SwaggerGenerator\SwaggerSpec;
 
 use SwaggerGenerator\Integration\ParameterInterface;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 
 class Parameter implements ParameterInterface
 {
@@ -32,7 +32,7 @@ class Parameter implements ParameterInterface
      * @param $spec
      * @return Parameter
      */
-    public static function fromSpec($spec, SerializationContext $context)
+    public static function fromSpec($spec, SerializationContextInterface $context)
     {
         return $spec instanceof self ? $spec : self::fromArray($spec, $context);
     }
@@ -41,7 +41,7 @@ class Parameter implements ParameterInterface
      * @param array $spec
      * @return Parameter
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         $required = !empty($spec["required"]);
         return new self($spec["name"], $spec["in"], Type::fromArray($spec, $context), $required);

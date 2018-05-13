@@ -3,6 +3,7 @@
 namespace SwaggerGenerator\SwaggerSpec\Type;
 
 use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type;
 
 class TypedArray extends Type
@@ -11,7 +12,7 @@ class TypedArray extends Type
      * @param array $spec
      * @return self
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         $itemsTypeSpec = empty($spec["items"]) ? null : $spec["items"];
         if (empty($itemsTypeSpec)) {

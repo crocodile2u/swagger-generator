@@ -2,17 +2,17 @@
 
 namespace Tests\SwaggerGenerator\Controller;
 
-use SwaggerGenerator\Integration\Controller;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
+use SwaggerGenerator\Integration\SwaggerServerInterface;
 
-class CallableControllerSpecAsArray implements Controller
+class CallableControllerSpecAsArray implements SwaggerServerInterface
 {
     public function __invoke()
     {
 
     }
 
-    public static function getSwaggerPaths(SerializationContext $context)
+    public static function getSwaggerPaths(SerializationContextInterface $context)
     {
         return [
             "/some-path/{id}" => [

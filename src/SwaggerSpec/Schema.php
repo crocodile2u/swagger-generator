@@ -2,11 +2,11 @@
 
 namespace SwaggerGenerator\SwaggerSpec;
 
-use SwaggerGenerator\Integration\Reference;
-use SwaggerGenerator\Integration\ReferenceResolver;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\ReferenceInterface;
+use SwaggerGenerator\Integration\ReferenceResolverInterface;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 
-class Schema implements SerializationContext, \JsonSerializable
+class Schema implements SerializationContextInterface, \JsonSerializable
 {
     /**
      * @var string[]
@@ -19,7 +19,7 @@ class Schema implements SerializationContext, \JsonSerializable
     private $resolved = [];
 
     /**
-     * @var ReferenceResolver[]
+     * @var ReferenceResolverInterface[]
      */
     private $resolvers = [];
 
@@ -27,7 +27,7 @@ class Schema implements SerializationContext, \JsonSerializable
      * @param string $name
      * @param string $resolverClass
      */
-    public function registerReference(Reference $ref)
+    public function registerReference(ReferenceInterface $ref)
     {
         if (!in_array($ref->getTypeName(), $this->unresolved)) {
             $this->unresolved[] = $ref->getTypeName();
@@ -35,9 +35,9 @@ class Schema implements SerializationContext, \JsonSerializable
     }
 
     /**
-     * @param ReferenceResolver $resolver
+     * @param ReferenceResolverInterface $resolver
      */
-    public function registerResolver(ReferenceResolver $resolver)
+    public function registerReferenceResolver(ReferenceResolverInterface $resolver)
     {
         $this->resolvers[] = $resolver;
     }
@@ -55,16 +55,18 @@ class Schema implements SerializationContext, \JsonSerializable
             if (array_key_exists($typeName, $this->resolved)) {
                 continue;
             }
-            foreach ($this->resolvers as $resolver) {
-                $type = $resolver->resolveSwaggerType($this, $typeName);
-                if ($type) {
-                    $this->resolved[$typeName] = $type;
-                    break;
-                }
-            }
-            if (empty($this->resolved[$typeName])) {
-                throw new \LogicException("Can't resolve reference to $typeName");
+            $this->resolved[$typeName] = $this->resolveReference($typeName);
+        }
+    }
+
+    private function resolveReference(string $typeName)
+    {
+        foreach ($this->resolvers as $resolver) {
+            $type = $resolver->resolveSwaggerType($this, $typeName);
+            if ($type) {
+                return $type;
             }
         }
+        throw new \LogicException("Can't resolve reference to $typeName");
     }
 }

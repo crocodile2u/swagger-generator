@@ -2,7 +2,7 @@
 
 namespace SwaggerGenerator\SwaggerSpec;
 
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type\Obj;
 use SwaggerGenerator\SwaggerSpec\Type\Ref;
 use SwaggerGenerator\SwaggerSpec\Type\Scalar;
@@ -18,7 +18,7 @@ abstract class Type implements \JsonSerializable
     /**
      * @param Type|array $spec
      */
-    public static function fromSpec($spec, SerializationContext $context)
+    public static function fromSpec($spec, SerializationContextInterface $context)
     {
         return $spec instanceof self ? $spec : self::fromArray($spec, $context);
     }
@@ -27,7 +27,7 @@ abstract class Type implements \JsonSerializable
      * @param array $spec
      * @return self
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         if (isset($spec["schema"])) {
             $ref = $spec["schema"];
@@ -41,9 +41,6 @@ abstract class Type implements \JsonSerializable
                 throw new \InvalidArgumentException("schema key must contain a valid Type\\Ref object");
             }
         }
-//        if (isset($spec['$ref'])) {
-//            return new Ref($context, $spec['$ref']);
-//        }
         $type = empty($spec["type"]) ? null : $spec["type"];
         switch ($type) {
             case Scalar::STRING:

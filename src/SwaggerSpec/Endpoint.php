@@ -5,7 +5,7 @@ namespace SwaggerGenerator\SwaggerSpec;
 use SwaggerGenerator\Integration\EndpointInterface;
 use SwaggerGenerator\Integration\ParameterInterface;
 use SwaggerGenerator\Integration\ResponseInterface;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 
 class Endpoint implements EndpointInterface
 {
@@ -43,7 +43,7 @@ class Endpoint implements EndpointInterface
      * @param $spec
      * @return Endpoint
      */
-    public static function fromSpec($spec, SerializationContext $context)
+    public static function fromSpec($spec, SerializationContextInterface $context)
     {
         return $spec instanceof self ? $spec : self::fromArray($spec, $context);
     }
@@ -52,7 +52,7 @@ class Endpoint implements EndpointInterface
      * @param array $spec
      * @return Endpoint
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         $ret = new self;
         foreach ($spec as $key => $value) {

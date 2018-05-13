@@ -2,7 +2,7 @@
 
 namespace SwaggerGenerator\SwaggerSpec\Type;
 
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type;
 
 class Scalar extends Type
@@ -21,7 +21,7 @@ class Scalar extends Type
      * @param array $spec
      * @return self
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         if (self::STRING === $spec["type"]) {
             $instance = new Str();

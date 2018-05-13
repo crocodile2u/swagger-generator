@@ -2,25 +2,23 @@
 
 namespace Tests\SwaggerGenerator\Controller;
 
-use SwaggerGenerator\Integration\Controller;
-use SwaggerGenerator\Integration\PathCollectionInterface;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
+use SwaggerGenerator\Integration\SwaggerServerInterface;
 use SwaggerGenerator\SwaggerSpec\Endpoint;
 use SwaggerGenerator\SwaggerSpec\Parameter;
 use SwaggerGenerator\SwaggerSpec\Path;
 use SwaggerGenerator\SwaggerSpec\PathCollection;
 use SwaggerGenerator\SwaggerSpec\Response;
 use SwaggerGenerator\SwaggerSpec\Type;
-use Tests\SwaggerGenerator\ReferenceResolver\TestModel;
 
-class CallableController implements Controller
+class CallableController implements SwaggerServerInterface
 {
     public function __invoke()
     {
 
     }
 
-    public static function getSwaggerPaths(SerializationContext $context)
+    public static function getSwaggerPaths(SerializationContextInterface $context)
     {
         $paths = new PathCollection();
         $paths->add(

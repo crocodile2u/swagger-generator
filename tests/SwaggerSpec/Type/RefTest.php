@@ -5,8 +5,6 @@ namespace Tests\SwaggerGenerator\SwaggerSpec\Type;
 use PHPUnit\Framework\TestCase;
 use SwaggerGenerator\SwaggerSpec\Schema;
 use SwaggerGenerator\SwaggerSpec\Type\Ref;
-use Tests\SwaggerGenerator\ReferenceResolver\TestModel;
-use Tests\SwaggerGenerator\ReferenceResolver\TestModel1;
 use Tests\SwaggerGenerator\ReferenceResolver\TestResolver;
 
 class RefTest extends TestCase
@@ -14,7 +12,7 @@ class RefTest extends TestCase
     public function testRegisteringInSerializationContext()
     {
         $schema = new Schema();
-        $schema->registerResolver(new TestResolver());
+        $schema->registerReferenceResolver(new TestResolver());
         $ref = new Ref($schema, "Test");
         $json = json_encode($ref);
         $decoded = json_decode($json, true);
@@ -25,7 +23,7 @@ class RefTest extends TestCase
     public function testRegisteringInSerializationContextRecursive()
     {
         $schema = new Schema();
-        $schema->registerResolver(new TestResolver());
+        $schema->registerReferenceResolver(new TestResolver());
         $ref = new Ref($schema, "Test1");
         $json = json_encode($ref);
         $decoded = json_decode($json, true);

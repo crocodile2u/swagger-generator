@@ -4,7 +4,7 @@ namespace SwaggerGenerator\SwaggerSpec;
 
 use SwaggerGenerator\Integration\PathCollectionInterface;
 use SwaggerGenerator\Integration\PathInterface;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 
 class PathCollection implements PathCollectionInterface
 {
@@ -17,7 +17,7 @@ class PathCollection implements PathCollectionInterface
      * @param $spec
      * @return PathCollection
      */
-    public static function fromSpec($spec, SerializationContext $context)
+    public static function fromSpec($spec, SerializationContextInterface $context)
     {
         return $spec instanceof self ? $spec : self::fromArray($spec, $context);
     }
@@ -26,7 +26,7 @@ class PathCollection implements PathCollectionInterface
      * @param array $spec
      * @return PathCollection
      */
-    public static function fromArray(array $spec, SerializationContext $context)
+    public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         $collection = new self;
         foreach ($spec as $uri => $endpoints) {
@@ -57,7 +57,7 @@ class PathCollection implements PathCollectionInterface
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function addCollection($collection, SerializationContext $context)
+    public function addCollection($collection, SerializationContextInterface $context)
     {
         $paths = self::fromSpec($collection, $context);
         foreach ($paths->asArray() as $path) {

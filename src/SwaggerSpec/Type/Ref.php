@@ -2,13 +2,11 @@
 
 namespace SwaggerGenerator\SwaggerSpec\Type;
 
-use SwaggerGenerator\Integration\Reference;
-use SwaggerGenerator\Integration\ReferenceResolver;
-use SwaggerGenerator\Integration\SerializationContext;
-use SwaggerGenerator\Integration\TypeInterface;
+use SwaggerGenerator\Integration\ReferenceInterface;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type;
 
-class Ref extends Type implements Reference
+class Ref extends Type implements ReferenceInterface
 {
     /**
      * @var string
@@ -19,7 +17,7 @@ class Ref extends Type implements Reference
      * Object constructor.
      * @param string|null $name
      */
-    public function __construct(SerializationContext $context, $name)
+    public function __construct(SerializationContextInterface $context, $name)
     {
         parent::__construct(self::REF);
         $this->name = basename($name);

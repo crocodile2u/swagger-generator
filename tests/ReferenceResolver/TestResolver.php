@@ -2,16 +2,16 @@
 
 namespace Tests\SwaggerGenerator\ReferenceResolver;
 
-use SwaggerGenerator\Integration\ReferenceResolver;
-use SwaggerGenerator\Integration\SerializationContext;
+use SwaggerGenerator\Integration\ReferenceResolverInterface;
+use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type;
 use SwaggerGenerator\SwaggerSpec\Type\Obj;
 use SwaggerGenerator\SwaggerSpec\Type\Ref;
 
-class TestResolver implements ReferenceResolver
+class TestResolver implements ReferenceResolverInterface
 {
 
-    public function resolveSwaggerType(SerializationContext $context, $name)
+    public function resolveSwaggerType(SerializationContextInterface $context, $name)
     {
         switch ($name) {
             case "Test1":

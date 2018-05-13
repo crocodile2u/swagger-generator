@@ -2,7 +2,7 @@
 
 namespace SwaggerGenerator\Generator;
 
-use SwaggerGenerator\Integration\Controller;
+use SwaggerGenerator\Integration\SwaggerServerInterface;
 use SwaggerGenerator\SwaggerSpec;
 
 class DirectoryScanner
@@ -43,7 +43,7 @@ class DirectoryScanner
         }
 
         $controllers = array_filter(get_declared_classes(), function($class) {
-            return in_array(Controller::class, class_implements($class));
+            return in_array(SwaggerServerInterface::class, class_implements($class));
         });
 
         return (new ControllerList($controllers, $this->schema))->generate();
