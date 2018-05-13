@@ -5,14 +5,14 @@ namespace Tests\SwaggerGenerator\Generator;
 use PHPUnit\Framework\TestCase;
 use SwaggerGenerator\Generator\DirectoryScanner;
 use SwaggerGenerator\SwaggerSpec\Schema;
-use Tests\SwaggerGenerator\ReferenceResolver\TestResolver;
+use Tests\SwaggerGenerator\Stubs\StubReferenceResolver;
 
 class DirectoryScannerTest extends TestCase
 {
     public function testScan()
     {
         $schema = new Schema();
-        $schema->registerReferenceResolver(new TestResolver());
+        $schema->registerReferenceResolver(new StubReferenceResolver());
         $generator = new DirectoryScanner(__DIR__ . "/../", $schema);
         $spec = $generator->scan();
 

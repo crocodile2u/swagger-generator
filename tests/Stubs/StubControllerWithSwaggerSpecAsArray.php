@@ -1,21 +1,16 @@
 <?php
 
-namespace Tests\SwaggerGenerator\Controller;
+namespace Tests\SwaggerGenerator\Stubs;
 
 use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\Integration\SwaggerServerInterface;
 
-class CallableControllerSpecAsArray implements SwaggerServerInterface
+class StubControllerWithSwaggerSpecAsArray implements SwaggerServerInterface
 {
-    public function __invoke()
-    {
-
-    }
-
     public static function getSwaggerPaths(SerializationContextInterface $context)
     {
         return [
-            "/some-path/{id}" => [
+            "/controller2/{id}" => [
                 "get" => [
                     "parameters" => [
                         [
@@ -28,7 +23,7 @@ class CallableControllerSpecAsArray implements SwaggerServerInterface
                             "in" => "query",
                             "name" => "something",
                             "schema" => [
-                                '$ref' => "Test"
+                                '$ref' => "Test1"
                             ]
                         ]
                     ],

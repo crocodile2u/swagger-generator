@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\SwaggerGenerator\ReferenceResolver;
+namespace Tests\SwaggerGenerator\Stubs;
 
 use SwaggerGenerator\Integration\ReferenceResolverInterface;
 use SwaggerGenerator\Integration\SerializationContextInterface;
@@ -8,7 +8,7 @@ use SwaggerGenerator\SwaggerSpec\Type;
 use SwaggerGenerator\SwaggerSpec\Type\Obj;
 use SwaggerGenerator\SwaggerSpec\Type\Ref;
 
-class TestResolver implements ReferenceResolverInterface
+class StubReferenceResolver implements ReferenceResolverInterface
 {
 
     public function resolveSwaggerType(SerializationContextInterface $context, $name)

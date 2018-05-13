@@ -20,42 +20,7 @@ return [
     'tags' => [],
     'schemes' => [],
     'paths' => [
-        '/multiaction/{id}' => [
-            'get' => [
-                'summary' => '',
-                'description' => '',
-                'operationId' => '',
-                'parameters' => [
-                    [
-                        'in' => 'path',
-                        'name' => 'id',
-                        'required' => true,
-                        'type' => 'integer',
-                    ],
-                    [
-                        'in' => 'body',
-                        'name' => 'obj',
-                        'required' => true,
-                        'schema' => [
-                            '$ref' => '#/definitions/Test1',
-                        ],
-                    ],
-                ],
-                'produces' => [
-                    'application/json',
-                ],
-                "consumes" => ["application/json"],
-                'responses' => [
-                    200 => [
-                        'description' => '',
-                        'schema' => [
-                            '$ref' => '#/definitions/Test1',
-                        ],
-                    ],
-                ],
-            ],
-        ],
-        '/callable/{id}' => [
+        '/controller1/{id}' => [
             'get' => [
                 'summary' => '',
                 'description' => '',
@@ -90,7 +55,7 @@ return [
                 ],
             ],
         ],
-        "/some-path/{id}" => [
+        "/controller2/{id}" => [
             "get" => [
                 "parameters" => [
                     [
@@ -104,7 +69,7 @@ return [
                         'name' => 'something',
                         'required' => false,
                         'schema' => [
-                            '$ref' => '#/definitions/Test'
+                            '$ref' => '#/definitions/Test1'
                         ]
                     ]
                 ],
