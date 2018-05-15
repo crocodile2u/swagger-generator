@@ -8,11 +8,6 @@ use SwaggerGenerator\SwaggerSpec\Type\Obj;
 class JSend extends Obj
 {
     /**
-     * @var bool
-     */
-    private $frozen = false;
-
-    /**
      * JSend constructor.
      * @param Type $dataType
      */
@@ -22,13 +17,12 @@ class JSend extends Obj
 
         $status = Type::string();
         $status->setPattern("/^success|fail|error$/");
-        $this->addProperty("status", $status, true);
+        parent::addProperty("status", $status, true);
         if ($dataType) {
-            $this->addProperty("data", $dataType, false);
+            parent::addProperty("data", $dataType, false);
         }
-        $this->addProperty("message", Type::string(), false);
-        $this->addProperty("code", Type::int(), false);
-        $this->frozen = true;
+        parent::addProperty("message", Type::string(), false);
+        parent::addProperty("code", Type::int(), false);
     }
 
     /**
@@ -36,10 +30,7 @@ class JSend extends Obj
      */
     public final function addProperty($name, Type $type, $required = false)
     {
-        if ($this->frozen) {
-            throw new \LogicException("Cannot add properties to JSend type after initialization");
-        }
-        return parent::addProperty($name, $type, $required);
+        throw new \LogicException("Cannot add properties to JSend type after initialization");
     }
 
     public final function jsonSerialize()

@@ -7,7 +7,7 @@ use SwaggerGenerator\SwaggerSpec\Schema;
 use SwaggerGenerator\SwaggerSpec\Type;
 use SwaggerGenerator\SwaggerSpec\Type\Obj;
 
-class ObjectTest extends TestCase
+class ObjTest extends TestCase
 {
     /**
      * @param array $spec
@@ -27,6 +27,26 @@ class ObjectTest extends TestCase
                 ["type" => "object", "properties" => ["id" => ["type" => "integer"]]],
                 Type::object()->addProperty("id", Type::int())
             ],
+        ];
+    }
+
+    /**
+     * @param array $spec
+     * @dataProvider providerFromArrayInvalidInput
+     * @expectedException \InvalidArgumentException
+     * @throws \InvalidArgumentException
+     */
+    public function testFromArrayThrowsOnInvalidInput(array $spec)
+    {
+        Obj::fromArray($spec, new Schema());
+    }
+
+    public function providerFromArrayInvalidInput()
+    {
+        return [
+            "empty array" => [[]],
+            "properties element not an array" => [["properties" => 1]],
+            "required element not an array" => [["required" => 1]],
         ];
     }
 
