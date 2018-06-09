@@ -1,5 +1,5 @@
 {
-    "name": "nbwm/swagger-generator",
+    "name": "crocodile2u/swagger-generator",
     "description": "Generate swagger spec for your REST API",
     "type": "library",
     "require-dev": {
@@ -9,11 +9,11 @@
     "authors": [
         {
             "name": "Victor Bolshov",
-            "email": "victor.bolshov@nbwm.nl"
+            "email": "crocodile2u@gmail.com"
         }
     ],
     "require": {
-        "nbwm/swagger-generator-integration": "*"
+        "crocodile2u/swagger-generator-integration": "^0.2.0"
     },
     "autoload": {
         "psr-4": {
@@ -23,12 +23,6 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\SwaggerGenerator\\": "./tests/"
-        }
-    },
-    "repositories": {
-        "swagger-generator-integration": {
-            "type": "vcs",
-            "url": "ssh://git@gitlab.nbwm.nl:3022/nbwm/swagger-generator-integration.git"
         }
     }
 }

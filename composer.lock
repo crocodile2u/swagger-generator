@@ -4,18 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5180ef1d725a8751aceb58b3cfb5f9e",
+    "content-hash": "54713d20bcdcdf7c01c40d1d8dc2a68e",
     "packages": [
         {
-            "name": "nbwm/swagger-generator-integration",
-            "version": "v1.2.1",
+            "name": "crocodile2u/swagger-generator-integration",
+            "version": "v0.2",
             "source": {
                 "type": "git",
-                "url": "ssh://git@gitlab.nbwm.nl:3022/nbwm/swagger-generator-integration.git",
-                "reference": "794ee458edc69de74a2b498502a2ebfea9394b97"
+                "url": "https://github.com/crocodile2u/swagger-generator-integration.git",
+                "reference": "70a00359dfb81190df200b2052de62731574fe5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crocodile2u/swagger-generator-integration/zipball/70a00359dfb81190df200b2052de62731574fe5a",
+                "reference": "70a00359dfb81190df200b2052de62731574fe5a",
+                "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=7.0"
             },
             "type": "library",
             "autoload": {
@@ -23,17 +29,18 @@
                     "SwaggerGenerator\\Integration\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Victor Bolshov",
-                    "email": "victor.bolshov@nbwm.nl"
+                    "email": "crocodile2u@gmail.com"
                 }
             ],
             "description": "Integration interfaces for swagger-generator",
-            "time": "2018-05-13T08:31:39+00:00"
+            "time": "2018-06-09T06:20:58+00:00"
         }
     ],
     "packages-dev": [
