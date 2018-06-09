@@ -23,7 +23,9 @@ class StubController implements SwaggerServerInterface
                     (new Endpoint())->addParameter(
                         new Parameter("id", "path", Type::int())
                     )->addParameter(
-                        new Parameter("objParam", "body", new Type\Ref($context, "Test"))
+                        new Parameter(
+                            "objParam", "body",
+                            new Type\Ref($context, "Test"))
                     )->addResponse(200, new Response(
                         new Type\Ref($context, "Test")
                     ))
