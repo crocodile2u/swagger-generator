@@ -93,15 +93,15 @@ class SwaggerSpecTest extends TestCase
             "swagger" => "2.0",
             "info" => [
                 'title' => null,
-                'description' => null,
-                'version' => null,
+                'description' => "My cool API",
+                'version' => "1.0",
                 'termsOfService' => null,
                 'contact' => [
-                    'email' => null,
+                    'email' => "me@example.com",
                 ],
                 'license' => [
-                    'name' => null,
-                    'url' => null,
+                    'name' => "MIT",
+                    'url' => "https://opensource.org/licenses/MIT",
                 ],
             ],
             "host" => null,

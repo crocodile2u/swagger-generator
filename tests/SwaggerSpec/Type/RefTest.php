@@ -38,9 +38,7 @@ class RefTest extends TestCase
         $this->assertEquals("object", $testSpec["type"]);
         $expected = [
             "ref" => [
-                "schema" => [
-                    "\$ref" => "#/definitions/Test"
-                ]
+                "\$ref" => "#/definitions/Test"
             ]
         ];
         $this->assertEquals($expected, $testSpec["properties"]);

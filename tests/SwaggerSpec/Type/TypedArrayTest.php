@@ -46,9 +46,7 @@ class TypedArrayTest extends TestCase
         $expected = [
             "type" => "array",
             "items" => [
-                'schema' => [
-                    '$ref' => '#/definitions/Test'
-                ]
+                '$ref' => '#/definitions/Test'
             ]
         ];
         $this->assertEquals($expected, $json);

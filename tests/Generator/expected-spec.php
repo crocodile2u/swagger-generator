@@ -30,18 +30,16 @@ return [
                         'in' => 'path',
                         'name' => 'id',
                         'required' => true,
-                        'schema' => ['type' => 'integer'],
+                        'type' => 'integer',
                     ],
                     [
                         'in' => 'body',
                         'name' => 'arrayParam',
                         'required' => true,
-                        'schema' => [
-                            'type' => 'array',
-                            'items' => [
-                                '$ref' => '#/definitions/Test',
-                            ]
-                        ],
+                        'type' => 'array',
+                        'items' => [
+                            '$ref' => '#/definitions/Test',
+                        ]
                     ],
                     [
                         'in' => 'body',
@@ -73,7 +71,7 @@ return [
                         "in" => "path",
                         "name" => "id",
                         "required" => true,
-                        "schema" => ["type" => "integer"],
+                        "type" => "integer",
                     ],
                     [
                         'in' => 'query',
@@ -89,7 +87,9 @@ return [
                 "responses" => [
                     200 => [
                         "description" => "",
-                        "schema" => ["type" => "integer"]
+                        "schema" => [
+                            "type" => "integer"
+                        ]
                     ]
                 ],
                 'summary' => '',
