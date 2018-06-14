@@ -30,7 +30,18 @@ return [
                         'in' => 'path',
                         'name' => 'id',
                         'required' => true,
-                        'type' => 'integer',
+                        'schema' => ['type' => 'integer'],
+                    ],
+                    [
+                        'in' => 'body',
+                        'name' => 'arrayParam',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'array',
+                            'items' => [
+                                '$ref' => '#/definitions/Test',
+                            ]
+                        ],
                     ],
                     [
                         'in' => 'body',
@@ -62,7 +73,7 @@ return [
                         "in" => "path",
                         "name" => "id",
                         "required" => true,
-                        "type" => "integer",
+                        "schema" => ["type" => "integer"],
                     ],
                     [
                         'in' => 'query',
@@ -100,9 +111,7 @@ return [
             'type' => 'object',
             'properties' => [
                 'ref' => [
-                    "schema" => [
-                        '$ref' => '#/definitions/Test',
-                    ]
+                    '$ref' => '#/definitions/Test',
                 ],
             ],
         ],

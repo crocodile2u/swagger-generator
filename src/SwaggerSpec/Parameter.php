@@ -44,7 +44,11 @@ class Parameter implements ParameterInterface
     public static function fromArray(array $spec, SerializationContextInterface $context)
     {
         $required = !empty($spec["required"]);
-        return new self($spec["name"], $spec["in"], Type::fromArray($spec, $context), $required);
+        $name = $spec["name"] ?? "";
+        $in = $spec["in"] ?? "";
+        unset($spec["name"], $spec["in"], $spec["required"]);
+        $typeSpec = $spec["schema"] ?? $spec;
+        return new self($name, $in, Type::fromArray($typeSpec, $context), $required);
     }
 
     /**
@@ -94,8 +98,8 @@ class Parameter implements ParameterInterface
             "in" => $this->in,
             "name" => $this->name,
             "required" => $this->required,
+            "schema" => $this->type->jsonSerialize()
         ];
-        $ret += $this->type->jsonSerialize();
         return $ret;
     }
 }

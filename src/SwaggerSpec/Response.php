@@ -46,15 +46,11 @@ class Response implements ResponseInterface
 
     function jsonSerialize()
     {
-        if ($this->type instanceof ReferenceInterface) {
-            $schemaJson = $this->type->jsonSerialize();
-        } else {
-            $schemaJson = [
-                "schema" => $this->type->jsonSerialize()
-            ];
-        }
+        $schemaJson = [
+            "schema" => $this->type->jsonSerialize()
+        ];
         return [
-            "description" => $this->description
+            "description" => $this->description,
         ] + $schemaJson;
     }
 }

@@ -80,6 +80,12 @@ class SwaggerSpecTest extends TestCase
         $spec = new SwaggerSpec($paths, $schema);
         $spec->setKeepEmptyValues(true);
 
+        $spec->setInfoDescription("My cool API")
+            ->setInfoLicenseName("MIT")
+            ->setInfoLicenseUrl("https://opensource.org/licenses/MIT")
+            ->setInfoVersion("1.0")
+            ->setInfoContactEmail("me@example.com");
+
         $json = json_encode($spec);
         $decoded = json_decode($json, true);
 

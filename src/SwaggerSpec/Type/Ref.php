@@ -38,9 +38,7 @@ class Ref extends Type implements ReferenceInterface
     public function jsonSerialize()
     {
         return [
-            "schema" => [
-                '$ref' => "#/definitions/{$this->name}"
-            ]
+            '$ref' => "#/definitions/{$this->name}"
         ];
     }
 }

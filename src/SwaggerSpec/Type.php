@@ -37,10 +37,17 @@ abstract class Type implements \JsonSerializable
                 return new Ref($context, $ref);
             } elseif (isset($ref['$ref']) && is_string($ref['$ref'])) {
                 return new Ref($context, $ref['$ref']);
+            } elseif (is_array($ref)) {
+                return self::fromArray($ref);
             } else {
                 throw new \InvalidArgumentException("schema key must contain a valid Type\\Ref object");
             }
         }
+
+        if (isset($spec['$ref'])) {
+            return new Ref($context, $spec['$ref']);
+        }
+
         $type = empty($spec["type"]) ? null : $spec["type"];
         switch ($type) {
             case Scalar::STRING:
