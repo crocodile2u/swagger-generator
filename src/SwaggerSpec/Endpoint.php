@@ -38,6 +38,10 @@ class Endpoint implements EndpointInterface
      * @var Parameter[]
      */
     private $parameters = [];
+    /**
+     * @var string[]|null
+     */
+    private $security = null;
 
     /**
      * @param $spec
@@ -237,9 +241,27 @@ class Endpoint implements EndpointInterface
         return $this;
     }
 
+    /**
+     * @return $this
+     */
+    public function bypassDefaultSecurity()
+    {
+        $this->security = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSecurity(string ...$definitionNames)
+    {
+        $this->security = $definitionNames;
+        return $this;
+    }
+
     public function jsonSerialize()
     {
-        return [
+        $ret = [
             "summary" => $this->summary,
             "description" => $this->description,
             "operationId" => (string) $this->operationId,
@@ -248,5 +270,11 @@ class Endpoint implements EndpointInterface
             "consumes" => $this->consumes ?: $this->defaultContentTypes,
             "responses" => $this->responses,
         ];
+
+        if (null !== $this->security) {
+            $ret["security"] = $this->security;
+        }
+
+        return $ret;
     }
 }

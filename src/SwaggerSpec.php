@@ -5,6 +5,7 @@ namespace SwaggerGenerator;
 use SwaggerGenerator\Integration\PathCollectionInterface;
 use SwaggerGenerator\Integration\PathInterface;
 use SwaggerGenerator\SwaggerSpec\Schema;
+use SwaggerGenerator\SwaggerSpec\SecurityDefinition;
 use SwaggerGenerator\SwaggerSpec\Type;
 
 class SwaggerSpec implements \JsonSerializable
@@ -31,6 +32,14 @@ class SwaggerSpec implements \JsonSerializable
     private $tags = [];
     private $schemes = [];
     private $keepEmptyValues = true;
+    /**
+     * @var SecurityDefinition[]
+     */
+    private $securityDefinitions = [];
+    /**
+     * @var string
+     */
+    private $security = [];
 
     /**
      * SwaggerSpec constructor.
@@ -59,6 +68,12 @@ class SwaggerSpec implements \JsonSerializable
             "paths" => $this->trimBasePath($this->paths->asArray()),
             "definitions" => $this->schema,
         ];
+
+        if ($this->securityDefinitions) {
+            $ret["securityDefinitions"] = $this->securityDefinitions;
+            $ret["security"] = $this->security;
+        }
+
         return $this->filterOutput($ret);
     }
 
@@ -226,6 +241,20 @@ class SwaggerSpec implements \JsonSerializable
     {
         $this->keepEmptyValues = $keepEmptyValues;
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param SecurityDefinition $definition
+     */
+    public function addSecurityDefinition(string $name, SecurityDefinition $definition)
+    {
+        $this->securityDefinitions[$name] = $definition;
+    }
+
+    public function setDefaultSecurity(string ...$names)
+    {
+        $this->security = $names;
     }
 
     /**
