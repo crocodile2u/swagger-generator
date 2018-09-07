@@ -8,7 +8,7 @@ class ApiKey extends SecurityDefinition
 {
     const IN_HEADER = "header",
         IN_QUERY = "query",
-        HEADER_NAME_AUTHORIZATION = "Autorization",
+        HEADER_NAME_AUTHORIZATION = "Authorization",
         HEADER_NAME_KEY = "X-Api-Key";
     /**
      * @var string
