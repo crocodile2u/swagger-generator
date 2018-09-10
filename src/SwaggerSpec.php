@@ -37,7 +37,7 @@ class SwaggerSpec implements \JsonSerializable
      */
     private $securityDefinitions = [];
     /**
-     * @var string
+     * @var string[]
      */
     private $security = [];
 
@@ -72,7 +72,9 @@ class SwaggerSpec implements \JsonSerializable
         if ($this->securityDefinitions) {
             $ret["securityDefinitions"] = $this->securityDefinitions;
             if ($this->security) {
-                $ret["security"] = [$this->security => []];
+                $ret["security"] = array_map(function($name) {
+                    return [$name => []];
+                }, $this->security);
             }
         }
 
