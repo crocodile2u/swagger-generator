@@ -5,6 +5,7 @@ namespace SwaggerGenerator\SwaggerSpec;
 use SwaggerGenerator\Integration\ParameterInterface;
 use SwaggerGenerator\Integration\SerializationContextInterface;
 use SwaggerGenerator\SwaggerSpec\Type\Ref;
+use SwaggerGenerator\SwaggerSpec\Type\Scalar;
 
 class Parameter implements ParameterInterface
 {
@@ -101,10 +102,10 @@ class Parameter implements ParameterInterface
             "required" => $this->required,
         ];
 
-        if ($this->type instanceof Ref) {
-            $ret["schema"] = $this->type->jsonSerialize();
-        } else {
+        if ($this->type instanceof Scalar) {
             $ret += $this->type->jsonSerialize();
+        } else {
+            $ret["schema"] = $this->type->jsonSerialize();
         }
 
         return $ret;

@@ -36,9 +36,11 @@ return [
                         'in' => 'body',
                         'name' => 'arrayParam',
                         'required' => true,
-                        'type' => 'array',
-                        'items' => [
-                            '$ref' => '#/definitions/Test',
+                        'schema' => [
+                            'type' => 'array',
+                            'items' => [
+                                '$ref' => '#/definitions/Test',
+                            ]
                         ]
                     ],
                     [

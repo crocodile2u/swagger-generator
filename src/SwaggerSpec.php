@@ -71,7 +71,9 @@ class SwaggerSpec implements \JsonSerializable
 
         if ($this->securityDefinitions) {
             $ret["securityDefinitions"] = $this->securityDefinitions;
-            $ret["security"] = $this->security;
+            if ($this->security) {
+                $ret["security"] = [$this->security => []];
+            }
         }
 
         return $this->filterOutput($ret);
