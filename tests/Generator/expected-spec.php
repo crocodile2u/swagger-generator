@@ -17,8 +17,6 @@ return [
     ],
     'host' => 'test.host',
     'basePath' => '/base/path',
-    'tags' => [],
-    'schemes' => [],
     'paths' => [
         '/controller1/{id}' => [
             'get' => [

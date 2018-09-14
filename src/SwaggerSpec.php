@@ -31,7 +31,7 @@ class SwaggerSpec implements \JsonSerializable
     private $basePath;
     private $tags = [];
     private $schemes = [];
-    private $keepEmptyValues = true;
+    private $keepEmptyValues = false;
     /**
      * @var SecurityDefinition[]
      */

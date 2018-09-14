@@ -13,7 +13,7 @@ class DirectoryScannerTest extends TestCase
     {
         $schema = new Schema();
         $schema->registerReferenceResolver(new StubReferenceResolver());
-        $generator = new DirectoryScanner(__DIR__ . "/../", $schema);
+        $generator = new DirectoryScanner($schema, __DIR__ . "/../");
         $spec = $generator->scan();
 
         $spec->setHost("test.host")
